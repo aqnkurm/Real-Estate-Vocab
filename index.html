@@ -24,6 +24,7 @@
             height: 21px;
             cursor: pointer;
             z-index: 30;
+            position: relative;
         }
         
         .hamburger-menu span {
@@ -62,6 +63,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-y: auto;
+            max-width: 80vw;
         }
         
         .mobile-menu.open {
@@ -85,8 +88,10 @@
         
         /* Responsive styles */
         @media (max-width: 768px) {
+            /* Keep desktop-buttons visible but hide specific buttons inside it */
             .desktop-buttons {
-                display: none;
+                /* Keep display property to maintain layout */
+                display: flex;
             }
             
             .hamburger-menu {
@@ -95,10 +100,14 @@
             
             .mobile-menu-container {
                 display: block;
+                position: relative;
+                z-index: 25;
             }
             
+            /* Keep category buttons in a row for mobile */
             .category-buttons-container {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: center;
                 align-items: center;
                 gap: 10px;
             }
@@ -205,34 +214,26 @@
     <header class="bg-white shadow-sm sticky top-0 z-20">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 truncate">Real Estate Vocab</h1>
-                
-                <!-- Desktop Buttons -->
-                <div class="desktop-buttons flex items-center space-x-2">
-                     <button id="gameButton" title="Play a game" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                        </svg>
-                    </button>
-                    <button id="shuffleButton" title="Shuffle terms" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5v5M4 20L20 4M20 16v5h-5M4 4l5 5" />
-                        </svg>
-                    </button>
-                    <button id="searchIcon" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
+                <!-- Title on Left -->
+                <div class="flex items-center">
+                    <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 truncate">Real Estate Vocab</h1>
                 </div>
                 
-                <!-- Mobile Menu Button -->
-                <div class="mobile-menu-container flex items-center">
-                    <button id="searchIconMobile" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-2">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </button>
-                    <div class="hamburger-menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <!-- Desktop Buttons on Right -->
+                <div class="flex items-center">
+                    <div class="desktop-buttons flex items-center space-x-2 mr-4">
+                        <button id="searchIcon" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="mobile-menu-container flex items-center">
+                        <div class="hamburger-menu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -265,10 +266,6 @@
                     </svg>
                     Shuffle Terms
                 </button>
-                <div class="border-t border-gray-200 my-4 w-full"></div>
-                <h3 class="text-lg font-medium text-gray-700 mb-2 text-center">Categories</h3>
-                <button id="realEstateBtnMobile" class="category-btn w-full px-4 py-2 bg-white border border-blue-500 text-blue-500 font-medium rounded-lg shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2 active">Principles</button>
-                <button id="financeBtnMobile" class="category-btn w-full px-4 py-2 bg-white border border-blue-500 text-blue-500 font-medium rounded-lg shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500">Finance</button>
             </div>
             
             <!-- Mobile Menu Overlay -->
@@ -1731,12 +1728,10 @@
         const cardCounter = document.getElementById('cardCounter');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
-        const shuffleButton = document.getElementById('shuffleButton');
         const searchIcon = document.getElementById('searchIcon');
         const searchContainer = document.getElementById('searchContainer');
         const searchInput = document.getElementById('searchInput');
         const noResults = document.getElementById('noResults');
-        const gameButton = document.getElementById('gameButton');
         const flashcardPage = document.getElementById('flashcardPage');
         const gamePage = document.getElementById('gamePage');
         const backButton = document.getElementById('backButton');
@@ -1982,12 +1977,6 @@
             }
         });
 
-        shuffleButton.addEventListener('click', () => {
-            shuffleArray(currentGlossary);
-            currentIndex = 0;
-            displayCurrentCard();
-        });
-
         searchIcon.addEventListener('click', (event) => {
             event.stopPropagation();
             searchContainer.classList.toggle('hidden');
@@ -2000,11 +1989,6 @@
             if (!searchContainer.contains(event.target) && !searchIcon.contains(event.target)) {
                 searchContainer.classList.add('hidden');
             }
-        });
-
-        gameButton.addEventListener('click', () => {
-            showPage('gamePage');
-            startGame();
         });
 
         backButton.addEventListener('click', () => {
@@ -2029,11 +2013,8 @@
         const hamburgerMenu = document.querySelector('.hamburger-menu');
         const mobileMenu = document.querySelector('.mobile-menu');
         const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-        const searchIconMobile = document.getElementById('searchIconMobile');
         const gameButtonMobile = document.getElementById('gameButtonMobile');
         const shuffleButtonMobile = document.getElementById('shuffleButtonMobile');
-        const realEstateBtnMobile = document.getElementById('realEstateBtnMobile');
-        const financeBtnMobile = document.getElementById('financeBtnMobile');
         
         // Toggle mobile menu
         function toggleMobileMenu() {
@@ -2055,15 +2036,6 @@
         hamburgerMenu.addEventListener('click', toggleMobileMenu);
         mobileMenuOverlay.addEventListener('click', closeMobileMenu);
         
-        // Mobile search icon
-        searchIconMobile.addEventListener('click', (event) => {
-            event.stopPropagation();
-            searchContainer.classList.toggle('hidden');
-            if (!searchContainer.classList.contains('hidden')) {
-                searchInput.focus();
-            }
-        });
-        
         // Mobile game button
         gameButtonMobile.addEventListener('click', () => {
             showPage('gamePage');
@@ -2079,37 +2051,7 @@
             closeMobileMenu();
         });
         
-        // Mobile category buttons
-        realEstateBtnMobile.addEventListener('click', () => {
-            switchCategory('realEstate');
-            // Also update mobile button styles
-            realEstateBtnMobile.classList.add('active');
-            financeBtnMobile.classList.remove('active');
-            closeMobileMenu();
-        });
-        
-        financeBtnMobile.addEventListener('click', () => {
-            switchCategory('finance');
-            // Also update mobile button styles
-            financeBtnMobile.classList.add('active');
-            realEstateBtnMobile.classList.remove('active');
-            closeMobileMenu();
-        });
-        
-        // Update the switchCategory function to also update mobile buttons
-        const originalSwitchCategory = switchCategory;
-        switchCategory = function(category) {
-            originalSwitchCategory(category);
-            
-            // Update mobile button styles
-            if (category === 'realEstate') {
-                realEstateBtnMobile.classList.add('active');
-                financeBtnMobile.classList.remove('active');
-            } else {
-                financeBtnMobile.classList.add('active');
-                realEstateBtnMobile.classList.remove('active');
-            }
-        };
+        // No need to modify the switchCategory function
         
         // --- INITIALIZATION ---
         
@@ -2124,3 +2066,4 @@
         };
     </script>
 </body>
+</html>
