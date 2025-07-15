@@ -11,97 +11,29 @@
             font-family: 'Inter', sans-serif;
         }
         
-        /* Mobile menu styles */
-        .mobile-menu-container {
-            display: none;
-        }
-        
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            cursor: pointer;
-            z-index: 30;
-            position: relative;
-        }
-        
-        .hamburger-menu span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: #4b5563;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Hamburger menu animation */
-        .hamburger-menu.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger-menu.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-        
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 250px;
-            height: 100vh;
-            background-color: white;
-            z-index: 20;
-            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
-            padding: 80px 20px 20px;
+        /* Responsive button styles */
+        .desktop-buttons {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            overflow-y: auto;
-            max-width: 80vw;
-        }
-        
-        .mobile-menu.open {
-            right: 0;
-        }
-        
-        .mobile-menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 15;
-            display: none;
-        }
-        
-        .mobile-menu-overlay.open {
-            display: block;
+            gap: 8px;
         }
         
         /* Responsive styles */
         @media (max-width: 768px) {
-            /* Keep desktop-buttons visible but hide specific buttons inside it */
+            /* Make desktop buttons more compact on mobile */
             .desktop-buttons {
-                /* Keep display property to maintain layout */
                 display: flex;
+                gap: 4px; /* Smaller gap on mobile */
             }
             
-            .hamburger-menu {
-                display: flex;
+            /* Make buttons smaller on mobile */
+            .desktop-buttons button {
+                padding: 6px;
             }
             
-            .mobile-menu-container {
-                display: block;
-                position: relative;
-                z-index: 25;
+            .desktop-buttons svg {
+                width: 20px;
+                height: 20px;
             }
             
             /* Keep category buttons in a row for mobile */
@@ -219,21 +151,22 @@
                     <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 truncate">Real Estate Vocab</h1>
                 </div>
                 
-                <!-- Desktop Buttons on Right -->
+                <!-- All Buttons on Right (visible in both desktop and mobile) -->
                 <div class="flex items-center">
-                    <div class="desktop-buttons flex items-center space-x-2 mr-4">
+                    <div class="desktop-buttons flex items-center space-x-2">
+                        <button id="gameButton" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                            </svg>
+                        </button>
+                        <button id="shuffleButton" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5v5M4 20L20 4M20 16v5h-5M4 4l5 5" />
+                            </svg>
+                        </button>
                         <button id="searchIcon" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </button>
-                    </div>
-                    
-                    <!-- Mobile Menu Button -->
-                    <div class="mobile-menu-container flex items-center">
-                        <div class="hamburger-menu">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -252,24 +185,7 @@
                 <button id="financeBtn" class="category-btn px-4 py-2 bg-white border border-blue-500 text-blue-500 font-medium rounded-lg shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500">Finance</button>
             </div>
             
-            <!-- Mobile Menu -->
-            <div class="mobile-menu">
-                <button id="gameButtonMobile" class="flex items-center justify-center w-full px-4 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                    </svg>
-                    Play Game
-                </button>
-                <button id="shuffleButtonMobile" class="flex items-center justify-center w-full px-4 py-3 bg-white border border-gray-300 text-gray-700 font-medium rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5v5M4 20L20 4M20 16v5h-5M4 4l5 5" />
-                    </svg>
-                    Shuffle Terms
-                </button>
-            </div>
-            
-            <!-- Mobile Menu Overlay -->
-            <div class="mobile-menu-overlay"></div>
+            <!-- No mobile menu needed as all buttons are now in the header -->
         </div>
     </header>
 
@@ -2007,48 +1923,21 @@
         });
 
 
-        // --- MOBILE MENU FUNCTIONALITY ---
+        // --- BUTTON FUNCTIONALITY ---
         
-        // Get mobile menu elements
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-        const gameButtonMobile = document.getElementById('gameButtonMobile');
-        const shuffleButtonMobile = document.getElementById('shuffleButtonMobile');
-        
-        // Toggle mobile menu
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('open');
-            mobileMenuOverlay.classList.toggle('open');
-            
-            // Toggle hamburger menu animation
-            hamburgerMenu.classList.toggle('active');
-        }
-        
-        // Close mobile menu
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            mobileMenuOverlay.classList.remove('open');
-            hamburgerMenu.classList.remove('active');
-        }
-        
-        // Mobile menu event listeners
-        hamburgerMenu.addEventListener('click', toggleMobileMenu);
-        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-        
-        // Mobile game button
-        gameButtonMobile.addEventListener('click', () => {
+        // Game button event listener
+        const gameButton = document.getElementById('gameButton');
+        gameButton.addEventListener('click', () => {
             showPage('gamePage');
             startGame();
-            closeMobileMenu();
         });
         
-        // Mobile shuffle button
-        shuffleButtonMobile.addEventListener('click', () => {
+        // Shuffle button event listener
+        const shuffleButton = document.getElementById('shuffleButton');
+        shuffleButton.addEventListener('click', () => {
             shuffleArray(currentGlossary);
             currentIndex = 0;
             displayCurrentCard();
-            closeMobileMenu();
         });
         
         // No need to modify the switchCategory function
